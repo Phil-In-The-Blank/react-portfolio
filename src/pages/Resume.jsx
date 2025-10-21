@@ -69,21 +69,25 @@ export function Resume({positions}) {
                     </Typography>
                     
                 </AccordionSummary>
-                <AccordionDetails>
-                    <Box
-        component="ul"
-        sx={{
-          pl: 3,
+                <AccordionDetails
+      sx={{
+        textAlign: 'left',                             // keep text left
+        '& ul': {
           listStyleType: 'disc',
           listStylePosition: 'outside',
-          '& > li': { display: 'list-item' },
-        }}
-      >
-        {position.details.map((bullet, j) => (
-          <li key={j}>{bullet}</li>
+          paddingInlineStart: '1.25rem',               // standard logical prop
+          WebkitPaddingStart: '1.25rem',               // iOS Safari quirk
+          margin: 0,
+        },
+        '& ul > li': { display: 'list-item' },         // re-enable markers if reset
+      }}
+    >
+      <ul>
+        {position.details.map((b, j) => (
+          <li key={j}>{b}</li>
         ))}
-      </Box>
-                </AccordionDetails>
+      </ul>
+    </AccordionDetails>
             </Accordion>
         ))}
         
