@@ -4,15 +4,15 @@ import { useState } from "react";
 const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
 async function downloadPdf(url, filename) {
-        const a = document.createElement("a");
-        a.href = url;
-        a.setAttribute("download", filename); // may be ignored by server headers
-        a.hidden = true;
-        a.style.position = "fixed";
-        a.style.left = "-9999px";
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+        const upstream = "https://www.philintheblank.cloud/PChristensen_Resume.pdf";
+        const r = await fetch(upstream);
+        if (!r.ok) return res.status(r.status).end();
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader("Cache-Control", "public, max-age=3600");
+        // Optional: force download
+        res.setHeader("Content-Disposition", 'attachment; filename="Philip_Christensen_Resume.pdf"');
+        const buf = Buffer.from(await r.arrayBuffer());
+        res.status(200).send(buf);
     }
 
 export function Resume() {
@@ -21,7 +21,7 @@ export function Resume() {
     const clickFuntion = async () => {
         try {
       setBusy(true);
-      await downloadPdf(SAFE_URL, "Philip_Christensen_Resume.pdf");
+      await downloadPdf('/api/resume', "Philip_Christensen_Resume.pdf");
     } catch (e) {
       console.error(e);
       // (optional) toast/snackbar here
