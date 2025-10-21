@@ -1,4 +1,4 @@
-import { AppBar, Button, Container } from "@mui/material";
+import { AppBar, Button, Container, Toolbar } from "@mui/material";
 import { Link, useLocation } from "react-router-dom";
 
 export function AppMenu({routes}) {
@@ -8,7 +8,8 @@ export function AppMenu({routes}) {
     return (
         <>
         <AppBar position="sticky" elevation={1} color="default">
-            <Container className="flex justify-content-evenly">
+            <Container >
+                <Toolbar className="flex justify-content-evenly">
             {routes.map((route) => (
                 <Button
                     key={route.to}
@@ -19,7 +20,7 @@ export function AppMenu({routes}) {
                     {route.label}
                 </Button>
             ))}
-            
+            </Toolbar>
             </Container>
         </AppBar>
         </>

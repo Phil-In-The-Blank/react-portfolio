@@ -70,11 +70,19 @@ export function Resume({positions}) {
                     
                 </AccordionSummary>
                 <AccordionDetails>
-                    <ul className="text-left list-disc pl-5 marker:text-current" style={{ listStyle: 'disc', paddingLeft: '1.25rem' }}>
-                        {position.details.map(bullet => (
-                            <li className="list-item">{bullet}</li>
-                        ))}
-                    </ul>
+                    <Box
+        component="ul"
+        sx={{
+          pl: 3,
+          listStyleType: 'disc',
+          listStylePosition: 'outside',
+          '& > li': { display: 'list-item' },
+        }}
+      >
+        {position.details.map((bullet, j) => (
+          <li key={j}>{bullet}</li>
+        ))}
+      </Box>
                 </AccordionDetails>
             </Accordion>
         ))}
