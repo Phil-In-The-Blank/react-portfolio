@@ -1,5 +1,5 @@
 import { Download } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Accordion, AccordionSummary, Button, Typography } from "@mui/material";
 import { useState } from "react";
 const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
@@ -56,6 +56,10 @@ export function Resume() {
             disabled={busy}
 
         >Download PDF</Button>
+
+        <Accordion>
+            <AccordionSummary><Typography variant="p" component="h3" className="w-full"><div className="flex justify-content-between"><span>2023-2025</span> <span>Edmunds GovTech: Software Developer</span></div></Typography></AccordionSummary>
+        </Accordion>
         </>
     )
 }
