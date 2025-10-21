@@ -1,5 +1,5 @@
-import { AddCircle, AddCircleOutline, Download, ExpandMore, HdrPlus, PlusOne } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material";
+import { Download, ExpandMore } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
