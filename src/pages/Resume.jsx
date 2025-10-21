@@ -4,18 +4,28 @@ import { useState } from "react";
 const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
 async function downloadPdf(url, filename) {
-        const res = await fetch(URL, {cache: "no-store"})
-        if(!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
-        const blob = await res.blob();
-        const objectUrl = URL.createObjectURL(blob)
-        const a = document.createElement("a");
-        a.href = objectUrl
-        a.download = filename ?? url.split("/").pop() ?? "download";
-        a.hidden = true
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(objectUrl);
+        const res = await fetch(url, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+
+  // Guard: make sure we didn't get index.html
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("pdf")) {
+    // Optionally read a bit to log/debug:
+    const textHead = await res.clone().text();
+    console.error("Expected a PDF, got:", ct, textHead.slice(0, 200));
+    throw new Error("Server returned a non-PDF response.");
+  }
+
+  const blob = await res.blob();
+  const objectUrl = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = objectUrl;
+  a.download = filename ?? (url.split("/").pop() || "download.pdf");
+  a.style.display = "none";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(objectUrl);
     }
 
 export function Resume() {
@@ -24,7 +34,7 @@ export function Resume() {
     const clickFuntion = async () => {
         try {
       setBusy(true);
-      await downloadPdf("/PChristensen_Resume.pdf", "Philip_Christensen_Resume.pdf");
+      await downloadPdf(SAFE_URL, "Philip_Christensen_Resume.pdf");
     } catch (e) {
       console.error(e);
       // (optional) toast/snackbar here
@@ -44,7 +54,7 @@ export function Resume() {
             startIcon={<Download/>}
             onClick={clickFuntion}
             disabled={busy}
-            loading={busy}
+
         >Download PDF</Button>
         </>
     )
