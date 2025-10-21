@@ -1,5 +1,5 @@
-import { Download } from "@mui/icons-material";
-import { Accordion, AccordionSummary, Button, Typography } from "@mui/material";
+import { AddCircle, AddCircleOutline, Download, ExpandMore, HdrPlus, PlusOne } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material";
 import { useState } from "react";
 const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
@@ -28,7 +28,7 @@ async function downloadPdf(url, filename) {
   window.URL.revokeObjectURL(objectUrl);
     }
 
-export function Resume() {
+export function Resume({positions}) {
     const [busy, setBusy] = useState(false);
     
     const clickFuntion = async () => {
@@ -56,10 +56,29 @@ export function Resume() {
             disabled={busy}
 
         >Download PDF</Button>
-
-        <Accordion>
-            <AccordionSummary><Typography variant="p" component="h3" className="w-full"><div className="flex justify-content-between"><span>2023-2025</span> <span>Edmunds GovTech: Software Developer</span></div></Typography></AccordionSummary>
-        </Accordion>
+        
+        {positions.map((position) => (
+            <Accordion>
+                <AccordionSummary
+                expandIcon={<ExpandMore />}
+                >
+                    <Typography variant="p" component="h3" className="w-full">
+                        <div className="flex justify-content-between">
+                            <span>{position.title}</span> <span>{position.time}</span>
+                        </div>
+                    </Typography>
+                    
+                </AccordionSummary>
+                <AccordionDetails>
+                    <ul className="text-left">
+                        {position.details.map(bullet => (
+                            <li>{bullet}</li>
+                        ))}
+                    </ul>
+                </AccordionDetails>
+            </Accordion>
+        ))}
+        
         </>
     )
 }

@@ -39,6 +39,35 @@ function App() {
     {label: "Resume", to: "/resume"}
   ]
 
+  const resumePositions = [
+    {time: '2023-2025', title: 'Edmunds GovTech: Software Developer', 
+      details: [
+        "Skills: Angular  (Typescript, CSS, HTML), Cypress, SpringBoot, Java, MySQL, Python",
+        "Created Cypress testing framework for end-to-end testing of multiple applications",
+        "Worked alongside QA to modify test database for application state configuration",
+        "Implemented support of multiple payment processor API’s in Angular applications",
+        "Documented application processes for QA department to follow such as account" + 
+        "creation and login flow with expected error handling in various situations",
+        "Modified Angular application initialization sequence for pre-initialization network calls",
+        "Designed and built reusable search component for various user billing account types",
+        "Designed and implemented user registration and password management interfaces",
+        "Implemented payment and fee calculation logic across Angular and Python applications" + 
+        " for both one time payment and recurring autopayment processing"
+      ]
+    },
+    {time: '2020-2023', title: 'Aveva (formerly OSISoft): Software Developer 1',
+      details: [
+        "Skills: Angular (Typescript, CSS, HTML), Cypress, Git, Agile, JSON, REST, YAML",
+        "Created reusable database setup and teardown routines for Cypress tests",
+        "Created reusable components to manage available servers based on access rights",
+        "Migrated custom Angular libraries to use Angular Material libraries for basic visuals",
+        "Created CI Pipeline script in YAML to validate SVG icon library",
+        "Monitored and maintained minimal network traffic standards across multiple applications from multiple teams"
+      ]
+    }
+
+  ]
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
@@ -46,7 +75,7 @@ function App() {
         <AppMenu routes={routes}></AppMenu>
         <Routes>
           <Route path="/" element={<><Home></Home></>}/>
-          <Route path="/resume" element={<><Resume></Resume></>}/>
+          <Route path="/resume" element={<><Resume positions={resumePositions}></Resume></>}/>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
