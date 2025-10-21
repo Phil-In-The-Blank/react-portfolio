@@ -1,6 +1,7 @@
 import { Download } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useState } from "react";
+const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
 async function downloadPdf(url, filename) {
         const res = await fetch(URL, {cache: "no-store"})
@@ -23,7 +24,7 @@ export function Resume() {
     const clickFuntion = async () => {
         try {
       setBusy(true);
-      await downloadPdf("/PChristensen_Resume.pdf", "Philip_Christensen_Resume.pdf");
+      await downloadPdf("https://www.philintheblank.cloud/PChristensen_Resume.pdf", "Philip_Christensen_Resume.pdf");
     } catch (e) {
       console.error(e);
       // (optional) toast/snackbar here
