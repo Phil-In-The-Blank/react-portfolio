@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
-async function downloadPdf(url, filename) {
+async function downloadPdf(req, res) {
         const upstream = "https://www.philintheblank.cloud/PChristensen_Resume.pdf";
         const r = await fetch(upstream);
         if (!r.ok) return res.status(r.status).end();
