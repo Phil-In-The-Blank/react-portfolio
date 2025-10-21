@@ -56,7 +56,7 @@ export function Resume({positions}) {
             disabled={busy}
 
         >Download PDF</Button>
-        
+        <div className="m-4"></div>
         {positions.map((position) => (
             <Accordion>
                 <AccordionSummary
@@ -70,7 +70,7 @@ export function Resume({positions}) {
                     
                 </AccordionSummary>
                 <AccordionDetails>
-                    <ul className="text-left">
+                    <ul className="text-left" style={{ listStyle: 'disc', paddingLeft: '1.25rem' }}>
                         {position.details.map(bullet => (
                             <li>{bullet}</li>
                         ))}
