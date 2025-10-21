@@ -3,16 +3,19 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
-async function downloadPdf(req, res) {
-        const upstream = "https://www.philintheblank.cloud/PChristensen_Resume.pdf";
-        const r = await fetch(upstream);
-        if (!r.ok) return res.status(r.status).end();
-        res.setHeader("Content-Type", "application/pdf");
-        res.setHeader("Cache-Control", "public, max-age=3600");
-        // Optional: force download
-        res.setHeader("Content-Disposition", 'attachment; filename="Philip_Christensen_Resume.pdf"');
-        const buf = Buffer.from(await r.arrayBuffer());
-        res.status(200).send(buf);
+async function downloadPdf(url, filename) {
+        const res = await fetch(URL, {cache: "no-store"})
+        if(!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+        const blob = await res.blob();
+        const objectUrl = URL.createObjectURL(blob)
+        const a = document.createElement("a");
+        a.href = objectUrl
+        a.download = filename ?? url.split("/").pop() ?? "download";
+        a.hidden = true
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(objectUrl);
     }
 
 export function Resume() {
@@ -21,7 +24,7 @@ export function Resume() {
     const clickFuntion = async () => {
         try {
       setBusy(true);
-      await downloadPdf('/api/resume', "Philip_Christensen_Resume.pdf");
+      await downloadPdf("/PChristensen_Resume.pdf", "Philip_Christensen_Resume.pdf");
     } catch (e) {
       console.error(e);
       // (optional) toast/snackbar here
