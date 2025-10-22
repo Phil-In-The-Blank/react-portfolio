@@ -64,7 +64,33 @@ function App() {
         "Created CI Pipeline script in YAML to validate SVG icon library",
         "Monitored and maintained minimal network traffic standards across multiple applications from multiple teams"
       ]
-    }
+    },
+    {time: '2019', title: 'OSISoft: Software Developer Intern',
+      details: [
+        "Aided in refactor of data display to utilize more server-side calculations over client side",
+        "Developed custom url history for API interactive tool for favoriting previous API calls",
+        "Aided in site maintenance via numerous bug fixes",
+        "Maintained high standard for unit testing any features and bug fixes",
+      ]
+    },
+    {time: '2017 & 2018', title: 'Avail Technologies Incorporated: Software Developer Intern (Multiple Internships)',
+      details: [
+        "Modified Bus Debug Utility to use Bing Rest Map Provider for gps simulation",
+        "Created Windows services of the necessary bus modules to run in .Net Core 2.0",
+        "Utilized factories to create control modes for Traffic Signal Priority devices",
+        "Developed logic to open and close screens on driver display from bus events",
+        "Created functions for driver Lock Out mode to limit screen interaction while driving",
+        "Communicated between the Angular Driver Display application with a back-end program to send, receive, and process data from each other through web requests"
+      ]
+    },
+    {time: '', title:'Software Languages and Skills', 
+      details: [
+        "Strong: Angular, Typescript, HTML, CSS, Object Oriented Programming, Git, Agile, Cypress, JSON",
+        "Proficient: C#/.Net, Python, YAML, REST, Java, MySQL",
+        "Basic: COBOL, YAML, AWS Cloud Services, SpringBoot, React"
+      ]
+    },
+    {time: 'B.S. of Computer Science at Indiana University of Pennsylvania 2020', title:'Education', details: []}
 
   ]
 
