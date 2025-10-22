@@ -7,6 +7,7 @@ import { AppMenu } from './shared/Menu';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Resume } from './pages/Resume';
+import { Map } from './pages/Map';
 
 const theme = createTheme({
   palette: {mode: 'light', 
@@ -102,6 +103,7 @@ function App() {
         <Routes>
           <Route path="/" element={<><Home></Home></>}/>
           <Route path="/resume" element={<><Resume positions={resumePositions}></Resume></>}/>
+          <Route path="/map" element={<><Map></Map></>}></Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
