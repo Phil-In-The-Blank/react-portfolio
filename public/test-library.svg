@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+	<symbol id="test" viewBox="0 0 1920 1280">
+		<path d="m230,119c102,19 88,89 20,110c-68,21 -114,-34 -114,-34c0,0 -8,-95 94,-76z" stroke="black" fill="white" stroke-width="2" vector-effect="non-scaling-stroke"/>
+	</symbol>
+
+<symbol id="square1" viewBox="0 0 100 100">
+    <path d="M10 10 H90 V90 H10 Z" fill="yellow" stroke="black" stroke-width="6"/>
+  </symbol>
+<symbol id="square2" viewBox="0 0 100 100">
+    <path d="M10 10 H90 V90 H10 Z" fill="#ff1744" stroke="black" stroke-width="6"/>
+  </symbol>
+<symbol id="square3" viewBox="0 0 100 100">
+    <path d="M10 10 H90 V90 H10 Z" fill="#ff1744" stroke="black" stroke-width="6"/>
+  </symbol>
+<symbol id="square4" viewBox="0 0 100 100">
+    <path d="M10 10 H90 V90 H10 Z" fill="#ff1744" stroke="black" stroke-width="6"/>
+  </symbol>
+<symbol id="square5" viewBox="0 0 100 100">
+    <path d="M10 10 H90 V90 H10 Z" fill="#ff1744" stroke="black" stroke-width="6"/>
+  </symbol>
+<symbol id="square6" viewBox="0 0 100 100">
+    <path d="M10 10 H90 V90 H10 Z" fill="#ff1744" stroke="black" stroke-width="6"/>
+  </symbol>
+</svg>

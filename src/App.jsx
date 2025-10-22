@@ -37,7 +37,8 @@ function App() {
 
   const routes = [
     {label: "Home", to: "/"},
-    {label: "Resume", to: "/resume"}
+    {label: "Resume", to: "/resume"},
+    {label: "Division Loot Map (WIP)", to: "/map"}
   ]
 
   const resumePositions = [
