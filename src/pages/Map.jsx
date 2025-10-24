@@ -7,24 +7,24 @@ export function Map() {
     {
         key: 'foggy_bottom',
         type: 'region', // Will determine Z index
-        posX: .3,
-        posY: .66,
+        posX: .42,
+        posY: .88,
         width: .1,
         height: .1
     },
     {
         key: 'bank_headquarters',
         type: 'mission', // Will determine Z index
-        posX: .3,
-        posY: .285,
+        posX: .375,
+        posY: .41,
         width: .05,
         height: .05
     }
 ]
 
 const testLootMappings = [
-    {key: 'bank_headquarters', icon: 'square1'},
-    {key: 'foggy_bottom', icon: 'square3'}
+    {key: 'bank_headquarters', icon: '511'},
+    {key: 'foggy_bottom', icon: 'wyvern_wear'}
 ]
 
     const containerRef = useRef(null);
@@ -98,24 +98,12 @@ const testLootMappings = [
         if(location.type === 'region'){
             ctx.save()
             ctx.globalAlpha = 0.5
-            drawSvgIcon(ctx, icons[icon], cx, cy, 96, { fill:"yellow", stroke: "yellow", lineWidth: 2 })
+            drawSvgIcon(ctx, icons[icon], cx, cy, 400, { fill:"white", stroke: "white", lineWidth: 1 })
             ctx.restore()
         }
         else
-        drawSvgIcon(ctx, icons[icon], cx, cy, 16, { stroke: "white", lineWidth: 2 })
-      })
-      
-      
-      // draw the SVG icon (e.g., 32px visual size)
-        
-    
-        
-    // {
-    //     fill: "#8B5CF6",
-    //     stroke: "white",
-    //     lineWidth: 2
-    //   }
-  
+        drawSvgIcon(ctx, icons[icon], cx, cy, 200, { stroke: "white", lineWidth: .5 })
+      }) 
     };
 
     render();

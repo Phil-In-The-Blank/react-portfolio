@@ -9,7 +9,7 @@ export function AppMenu({routes}) {
         <>
         <AppBar position="sticky" elevation={1} color="default">
             <Container >
-                <Toolbar className="flex justify-content-evenly">
+                <Toolbar className="flex justify-content-between">
             {routes.map((route) => (
                 <Button
                     key={route.to}

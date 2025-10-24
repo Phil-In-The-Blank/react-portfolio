@@ -38,7 +38,7 @@ export function Resume({ positions }) {
         } catch (e) {
             console.error(e);
             // (optional) toast/snackbar here
-            alert("Sorry—couldn’t download the resume. Please try again.");
+            alert("Sorry—couldn't download the resume. Please try again.");
         } finally {
             setBusy(false);
         }
