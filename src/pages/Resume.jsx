@@ -1,5 +1,5 @@
-import { Download, ExpandMore } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Typography } from "@mui/material";
+import { Download, ExpandMore, GitHub, LinkedIn, X } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, IconButton, Typography } from "@mui/material";
 import { useState } from "react";
 const SAFE_URL = 'https://www.philintheblank.cloud/PChristensen_Resume.pdf'
 
@@ -55,7 +55,9 @@ export function Resume({ positions }) {
                 onClick={clickFuntion}
                 disabled={busy}
 
-            >Download PDF</Button>
+            >Download Resume PDF</Button>
+            <IconButton color="secondary" className="m-2" href="https://www.github.com/Phil-In-The-Blank"> <GitHub></GitHub> </IconButton>
+            <IconButton color="secondary" className="m-2" href="https://www.linkedin.com/in/philip-christensen-55918814b"> <LinkedIn></LinkedIn> </IconButton>
             <div className="m-4"></div>
             {positions.map((position) => (
                 <Accordion>

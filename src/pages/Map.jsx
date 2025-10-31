@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react"
 
 
 export function Map() {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL
     const testLocations = [
     {
         key: 'foggy_bottom',
@@ -55,7 +56,6 @@ const testLootMappings = [
     })();
 
     // get location data here, and icon to location mapping (2 separate web requests)
-    setIconLocations(testLocations)
     setLootMapping(testLootMappings)
 
     return () => {
@@ -63,9 +63,12 @@ const testLootMappings = [
     };
     }, [])
 
+    // Get api data
+    
+
     // Set sizing after init
     useEffect(() => {
-    if (!baseImg || !icons) return;
+    if (!baseImg || !icons || !iconLocations?.length || !lootMapping?.length) return;
 
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -91,11 +94,11 @@ const testLootMappings = [
       if(icons && iconLocations && lootMapping)
       iconLocations.forEach((location) => {
         const icon = lootMapping.find( loot => loot.key === location.key).icon
-        const cx = location.posX * cssW;
-        const cy = location.posY * cssH;
+        const cx = location.positionX * cssW;
+        const cy = location.positionY * cssH;
         const scaleX = cssW / baseImg.width;
         const scaleY = cssH / baseImg.height;
-        if(location.type === 'region'){
+        if(location.locationType === 'region'){
             ctx.save()
             ctx.globalAlpha = 0.5
             drawSvgIcon(ctx, icons[icon], cx, cy, 400, { fill:"white", stroke: "white", lineWidth: 1 })
@@ -110,6 +113,18 @@ const testLootMappings = [
     window.addEventListener("resize", render);
     return () => window.removeEventListener("resize", render);
   }, [baseImg, icons, lootMapping, iconLocations]);
+
+  useEffect(() => {
+      async function load() {
+        const lootLocationsRes = await fetch(`${baseUrl}/api/map/locations`, {
+  headers: { "Content-Type": "application/json" }
+}).then();
+      const parsedLocations = await lootLocationsRes.json();
+      setIconLocations(parsedLocations)
+    }
+
+    load();
+    }, [])
 
   const handleClick = (e) => {
     if (!baseImg) return;
