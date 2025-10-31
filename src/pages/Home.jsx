@@ -30,10 +30,10 @@ export function Home() {
             <h3 className="text-left">Future Site Updates Planned</h3>
             <ul className="text-left">
                 <li>Division 2 Loot Map: I plan to develop a dynamic web application that visualizes the 
-                    daily loot rotation system from The Division 2. This project will eventually demonstrate full-stack capabilities, 
-                    including data integration, API handling, and interactive UI mapping. Currently, I have it rendering a small number
-                    of square icons from a self generated library to demonstrate the ability to position and scale icons from a predefined list.
-                    Next steps are to add custom icons, retrieve the location positions and the icon mappings from an api, and to allow mouse interaction via tooltips
+                    daily loot rotation system from The Division 2. Currently the icon data and locations/size data is being fetched from 
+                    a SpringBoot API hosted by me through a CloudFlare Tunnel. Currently it is running on my personal computer but intend to deploy it to
+                    a more permanent location. Future locations and icons will gradually be added as that is an extensive process to convert to SVG icons.
+                    Future Improvements: Mouse interaction with Icons. Database storage of icon data (currently hard coded objects on the API side).
                     </li>
                 <li>Styling: The site currently uses PrimeFlexCSS and Material UI for layout and design components. 
                     As Material UI continues to expand its web feature set, I intend to refine the site's appearance 
@@ -45,6 +45,8 @@ export function Home() {
             <span>Email: <a href="mailto:management@philintheblank.cloud">management@philintheblank.cloud</a></span>
             <span>Mobile: (814) 777-5383</span>
             </div>
+
+            <h6>Last Updated: October 30, 2025</h6>
         </>
     )
 }
