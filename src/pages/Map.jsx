@@ -55,9 +55,6 @@ const testLootMappings = [
       }
     })();
 
-    // get location data here, and icon to location mapping (2 separate web requests)
-    setLootMapping(testLootMappings)
-
     return () => {
       cancelled = true;
     };
@@ -68,7 +65,7 @@ const testLootMappings = [
 
     // Set sizing after init
     useEffect(() => {
-    if (!baseImg || !icons || !iconLocations?.length || !lootMapping?.length) return;
+    if (!baseImg || !icons) return;
 
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -91,7 +88,7 @@ const testLootMappings = [
       ctx.drawImage(baseImg, 0, 0, cssW, cssH);
 
       // convert image -> canvas coords
-      if(icons && iconLocations && lootMapping)
+      if(icons && iconLocations?.length && lootMapping?.length)
       iconLocations.forEach((location) => {
         const icon = lootMapping.find( loot => loot.key === location.key).icon
         const cx = location.positionX * cssW;
@@ -117,10 +114,14 @@ const testLootMappings = [
   useEffect(() => {
       async function load() {
         const lootLocationsRes = await fetch(`${baseUrl}/api/map/locations`, {
-  headers: { "Content-Type": "application/json" }
-}).then();
+          headers: { "Content-Type": "application/json" }}).then();
       const parsedLocations = await lootLocationsRes.json();
       setIconLocations(parsedLocations)
+
+      const lootData = await fetch(`${baseUrl}/api/map/loot`, {
+          headers: { "Content-Type": "application/json" }}).then();
+      const parsedLoot = await lootData.json();
+      setLootMapping(parsedLoot)
     }
 
     load();
