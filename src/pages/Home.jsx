@@ -46,7 +46,7 @@ export function Home() {
             <span>Mobile: (814) 777-5383</span>
             </div>
 
-            <h6>Last Updated: October 30, 2025</h6>
+            <h6>Last Updated: November 3, 2025</h6>
         </>
     )
 }
