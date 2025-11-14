@@ -2,12 +2,13 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { ThemeProvider, createTheme, CssBaseline, Button } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline, Button, Box } from '@mui/material';
 import { AppMenu } from './shared/Menu';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Resume } from './pages/Resume';
-import { Map } from './pages/Map';
+import { DivisionMap } from './pages/Map';
+import { DivisionMap2 } from './pages/DummyMap';
 
 const theme = createTheme({
   palette: {mode: 'light', 
@@ -100,12 +101,16 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline/>
       <BrowserRouter>
-        <AppMenu routes={routes}></AppMenu>
-        <Routes>
-          <Route path="/" element={<><Home></Home></>}/>
-          <Route path="/resume" element={<><Resume positions={resumePositions}></Resume></>}/>
-          <Route path="/map" element={<><Map></Map></>}></Route>
-        </Routes>
+      <Box sx={{ minHeight: "100dvh", display: "flex", flexDirection:"column"}}>
+          <AppMenu routes={routes}></AppMenu>
+          <Box component="main" sx={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
+            <Routes>
+              <Route path="/" element={<><Home></Home></>}/>
+              <Route path="/resume" element={<><Resume positions={resumePositions}></Resume></>}/>
+              <Route path="/map" element={<><DivisionMap2></DivisionMap2></>}></Route>
+            </Routes>
+          </Box>
+        </Box>
       </BrowserRouter>
     </ThemeProvider>
   )
