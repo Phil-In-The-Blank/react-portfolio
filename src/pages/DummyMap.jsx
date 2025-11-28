@@ -8,6 +8,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { PinLayer } from "./Map/PinLayer";
 
 const squareGeoJSON = {
   type: "FeatureCollection",
@@ -82,6 +83,7 @@ export function DivisionMap2() {
     <Box sx={{ width: "100%", height: 600 }}>
       <MapContainer
         crs={L.CRS.Simple}
+        minZoom={-1}
         bounds={bounds} // let Leaflet auto-center/zoom
         style={{ width: "100%", height: "100%" }}
       >
@@ -105,6 +107,7 @@ export function DivisionMap2() {
             console.log("Square bounds:", layer.getBounds());
           }}
         />
+        <PinLayer></PinLayer>
       </MapContainer>
     </Box>
   );
