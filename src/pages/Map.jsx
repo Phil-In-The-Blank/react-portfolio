@@ -60,29 +60,6 @@ const testLootMappings = [
 
     const [iconLocations, setIconLocations] = useState(null)
 
-    // Initial Render
-    useEffect(() => {
-        const base = new Image();
-        base.src = '/division_2_map.avif'
-        base.onload = () => {
-            setBaseImg(base);
-        }
-
-        let cancelled = false;
-
-    (async () => {
-      try {
-        const result = await loadIconSprite("/test-library.svg");
-        if (!cancelled) setIcons(result);
-      } catch (err) {
-        console.error("Failed to load sprite:", err);
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-    }, [])
 
     // Get api data
     
@@ -245,49 +222,7 @@ function ClickCapture() {
   return null;
 }
 
-async function loadIconSprite(url) {
-  const resp = await fetch(url, { cache: "no-store" });
-  const text = await resp.text();
-  const doc = new DOMParser().parseFromString(text, "image/svg+xml");
 
-  // Support <symbol id="..."> inside a sprite
-  const symbols = Array.from(doc.querySelectorAll("symbol"));
-
-  // If your file has <svg><g id="..."><path/></g>...</svg>, fall back to groups:
-  const groupsAsSymbols =
-    symbols.length === 0
-      ? Array.from(doc.querySelectorAll("svg > g[id]")).map((g) => {
-          const sym = doc.createElementNS("http://www.w3.org/2000/svg", "symbol");
-          sym.setAttribute("id", g.getAttribute("id") || "");
-          const vb = doc.querySelector("svg")?.getAttribute("viewBox");
-          if (vb) sym.setAttribute("viewBox", vb);
-          // move children into the faux symbol
-          Array.from(g.childNodes).forEach((n) => sym.appendChild(n.cloneNode(true)));
-          return sym;
-        })
-      : [];
-
-  const nodes = symbols.length ? symbols : groupsAsSymbols;
-
-  // Build a dictionary: id -> { viewBox: [x,y,w,h], paths: [{d, fill, stroke}] }
-  const ICONS = {};
-
-  for (const sym of nodes) {
-    const id = sym.getAttribute("id") || crypto.randomUUID();
-    const vb = (sym.getAttribute("viewBox") || "0 0 24 24").split(/\s+/).map(Number);
-
-    const paths = Array.from(sym.querySelectorAll("path")).map((p) => ({
-      d: p.getAttribute("d") || "",
-      fill: p.getAttribute("fill") || undefined,
-      stroke: p.getAttribute("stroke") || undefined,
-    }));
-
-    // You can also flatten <rect>, <circle>, etc. into paths — but sticking to <path> keeps it simple.
-    ICONS[id] = { viewBox: [vb[0], vb[1], vb[2], vb[3]], paths };
-  }
-
-  return ICONS;
-}
 
 function RegionsLayer({data}){
   const map = useMap();

@@ -40,11 +40,11 @@ export function PinLayer() {
         <>
             {  testMarkers.map((marker) => (
                 icons !== null && icons[marker.iconId] ?
-                <Marker position={marker.position} icon={L.divIcon({
+                <Marker key={marker.iconId} position={marker.position} icon={L.divIcon({
                     html: `<div class="map-icon-wrapper">${icons[marker.iconId]}</div>`,
                     iconSize: [50, 50],
                     iconAnchor: [25, 25],
-                    className: 'test'
+                    className: 'test',
                 })}></Marker> : <></>
             )) }
         </>

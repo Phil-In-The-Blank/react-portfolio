@@ -5,10 +5,14 @@ import {
   ImageOverlay,
   GeoJSON,
   useMap,
+  useMapEvents,
+  Polygon,
+  Pane,
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { PinLayer } from "./Map/PinLayer";
+import { RegionLayer } from "./Map/RegionLayer";
 
 const squareGeoJSON = {
   type: "FeatureCollection",
@@ -19,20 +23,13 @@ const squareGeoJSON = {
       geometry: {
         type: "Polygon",
         coordinates: [
-          [
-            [100, 100],
-            [300, 100],
-            [300, 300],
-            [100, 300],
-            [100, 100], // close ring
-          ],
+          
         ],
       },
     },
   ],
 };
 
-// 2) Loud style so you can't miss it
 const squareStyle = () => ({
   color: "#ff0000",
   weight: 4,
@@ -41,38 +38,72 @@ const squareStyle = () => ({
   fillOpacity: 0.6,
 });
 
-// 3) Create panes *programmatically* so we don't fight <Pane> quirks
-function InitPanes() {
-  const map = useMap();
 
-  useEffect(() => {
-    // base pane for the image
-    const basePane = map.createPane("base");
-    basePane.style.zIndex = "200";
 
-    // regions pane for GeoJSON
-    const regionsPane = map.createPane("regions");
-    regionsPane.style.zIndex = "400";
-
-    // optional: keep the image from eating mouse events
-    const css = document.createElement("style");
-    css.textContent = `
-      .leaflet-pane.leaflet-base-pane img.leaflet-image-layer {
-        pointer-events: none;
-      }
-    `;
-    document.head.appendChild(css);
-
-    return () => {
-      // Leaflet doesn't really have a "destroy pane" API; this is just demo code.
-      // In a real app you'd leave panes for the lifetime of the map.
-    };
-  }, [map]);
-
-  return null;
-}
 
 export function DivisionMap2() {
+  const polygon = [
+    [
+        378,
+        268.59999084472656
+    ],
+    [
+        453,
+        239.59999084472656
+    ],
+    [
+        548,
+        239.59999084472656
+    ],
+    [
+        540,
+        253.59999084472656
+    ],
+    [
+        534,
+        259.59999084472656
+    ],
+    [
+        534,
+        279.59999084472656
+    ],
+    [
+        570,
+        303.59999084472656
+    ],
+    [
+        562,
+        307.59999084472656
+    ],
+    [
+        561,
+        317.59999084472656
+    ],
+    [
+        571,
+        325.59999084472656
+    ],
+    [
+        534,
+        387.59999084472656
+    ],
+    [
+        534,
+        417.59999084472656
+    ],
+    [
+        534,
+        469.59999084472656
+    ],
+    [
+        388,
+        467.59999084472656
+    ],
+    [
+        378,
+        268.59999084472656
+    ]
+]
   // pixel bounds of your AVIF
   const bounds = [
     [0, 0],
@@ -87,9 +118,8 @@ export function DivisionMap2() {
         bounds={bounds} // let Leaflet auto-center/zoom
         style={{ width: "100%", height: "100%" }}
       >
-        {/* create custom panes */}
-        <InitPanes />
-
+        
+        <Pane name="base" style={{zIndex: 200}}></Pane>
         {/* base image in 'base' pane */}
         <ImageOverlay
           url="/division_2_map.avif"
@@ -99,16 +129,34 @@ export function DivisionMap2() {
         />
 
         {/* square in 'regions' pane (above image) */}
-        <GeoJSON
-          data={squareGeoJSON}
-          style={squareStyle}
-          pane="regions"
-          onEachFeature={(feature, layer) => {
-            console.log("Square bounds:", layer.getBounds());
-          }}
-        />
+        {/* <RegionLayer></RegionLayer> */}
+        <Pane name="regions" style={{zIndex: 200}}></Pane>
         <PinLayer></PinLayer>
+        <Polygon pathOptions={{color: 'red'}} positions={polygon} pane="regions"></Polygon>
+        <ClickCapture/>
       </MapContainer>
     </Box>
   );
+}
+
+function ClickCapture() {
+  const coords = []
+  useMapEvents({
+    click(e) {
+      const { lat, lng } = e.latlng;          // Leaflet order
+      // CRS.Simple tip: treat as image coords [y=lat, x=lng]
+      if(coords.length === 0){
+        coords.push([lat, lng])
+        coords.push([lat, lng])
+      }
+      else{
+        const pop = coords.pop();
+        coords.push([lat, lng])
+        coords.push(pop)
+      }
+      // If you want GeoJSON order [x, y] == [lng, lat]:
+      console.log(coords);
+    },
+  });
+  return null;
 }
