@@ -8,6 +8,7 @@ import {
   useMapEvents,
   Polygon,
   Pane,
+  SVGOverlay,
 } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -129,10 +130,13 @@ export function DivisionMap2() {
         />
 
         {/* square in 'regions' pane (above image) */}
-        {/* <RegionLayer></RegionLayer> */}
+        
         <Pane name="regions" style={{zIndex: 200}}></Pane>
         <PinLayer></PinLayer>
-        <Polygon pathOptions={{color: 'red'}} positions={polygon} pane="regions"></Polygon>
+        <SVGOverlay bounds={bounds}>
+          
+        </SVGOverlay>
+       <RegionLayer></RegionLayer>
         <ClickCapture/>
       </MapContainer>
     </Box>

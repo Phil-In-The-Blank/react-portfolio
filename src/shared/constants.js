@@ -73,3 +73,29 @@ export const geoJSON = {type: "FeatureCollection", features: [
     }
 ]}
 
+export async function loadIcons(url) {
+    const resp = await fetch(url, { cache: "no-store" });
+    const text = await resp.text();
+    const doc = new DOMParser().parseFromString(text, "image/svg+xml");
+    const symbols = Array.from(doc.querySelectorAll("symbol"));
+
+    const ICONS = {};
+
+  for (const sym of symbols) {
+    const id = sym.getAttribute("id");
+    const vb = (sym.getAttribute("viewBox") || "0 0 24 24").split(/\s+/).map(Number);
+
+    const paths = Array.from(sym.querySelectorAll("path")).map((p) => (
+        `<path d="${p.getAttribute('d')}"></path>`
+    
+    ));
+    ICONS[id] = 
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb.join(' ')}" class="map-icon-svg">
+        ${paths.join('')}
+    </svg>
+    `;
+  }
+
+  return ICONS;
+}
+
