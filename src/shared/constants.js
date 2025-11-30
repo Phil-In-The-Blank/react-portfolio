@@ -99,3 +99,24 @@ export async function loadIcons(url) {
   return ICONS;
 }
 
+export async function loadIconsRawPath(url) {
+    const resp = await fetch(url, { cache: "no-store" });
+    const text = await resp.text();
+    const doc = new DOMParser().parseFromString(text, "image/svg+xml");
+    const symbols = Array.from(doc.querySelectorAll("symbol"));
+
+    const ICONS = {};
+
+  for (const sym of symbols) {
+    const id = sym.getAttribute("id");
+    const vb = (sym.getAttribute("viewBox") || "0 0 24 24").split(/\s+/).map(Number);
+
+    const paths = Array.from(sym.querySelectorAll("path")).map((p) => (
+        p.getAttribute('d')
+    ));
+    ICONS[id] = {viewBox: vb.join(' '), paths}
+  }
+
+  return ICONS;
+}
+

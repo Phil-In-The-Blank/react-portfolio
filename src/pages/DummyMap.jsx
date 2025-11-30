@@ -133,9 +133,7 @@ export function DivisionMap2() {
         
         <Pane name="regions" style={{zIndex: 200}}></Pane>
         <PinLayer></PinLayer>
-        <SVGOverlay bounds={bounds}>
-          
-        </SVGOverlay>
+        
        <RegionLayer></RegionLayer>
         <ClickCapture/>
       </MapContainer>
