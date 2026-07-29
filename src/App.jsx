@@ -10,6 +10,7 @@ import { Resume } from './pages/Resume';
 import { DivisionMap } from './pages/Map';
 import { DivisionMap2 } from './pages/DummyMap';
 import { TimerCard } from './pages/Timer/TimerCard';
+import { TimerPage } from './pages/Timer/TimerPage';
 
 const theme = createTheme({
   palette: {mode: 'light', 
@@ -110,7 +111,7 @@ function App() {
               <Route path="/" element={<><Home></Home></>}/>
               <Route path="/resume" element={<><Resume positions={resumePositions}></Resume></>}/>
               <Route path="/map" element={<><DivisionMap2></DivisionMap2></>}></Route>
-              <Route path="/timer" element={<><TimerCard></TimerCard></>}></Route>
+              <Route path="/timer" element={<><TimerPage></TimerPage></>}></Route>
             </Routes>
           </Box>
         </Box>
