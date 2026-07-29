@@ -9,6 +9,7 @@ import { Home } from './pages/Home';
 import { Resume } from './pages/Resume';
 import { DivisionMap } from './pages/Map';
 import { DivisionMap2 } from './pages/DummyMap';
+import { TimerCard } from './pages/Timer/TimerCard';
 
 const theme = createTheme({
   palette: {mode: 'light', 
@@ -39,7 +40,8 @@ function App() {
   const routes = [
     {label: "Home", to: "/"},
     {label: "Resume", to: "/resume"},
-    {label: "Division Loot Map (WIP)", to: "/map"}
+    {label: "Division Loot Map (WIP)", to: "/map"},
+    {label: "Timer App (WIP)", to: "/timer"}
   ]
 
   const resumePositions = [
@@ -108,6 +110,7 @@ function App() {
               <Route path="/" element={<><Home></Home></>}/>
               <Route path="/resume" element={<><Resume positions={resumePositions}></Resume></>}/>
               <Route path="/map" element={<><DivisionMap2></DivisionMap2></>}></Route>
+              <Route path="/timer" element={<><TimerCard></TimerCard></>}></Route>
             </Routes>
           </Box>
         </Box>
